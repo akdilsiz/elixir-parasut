@@ -1,0 +1,15 @@
+dist: trusty
+language: elixir
+elixir:
+  - 1.7.0
+otp_release:
+  - 20.0
+services: redis
+sudo: required
+install:
+  - mix local.hex --force
+  - mix local.rebar --force
+  - mix deps.get
+  - MIX_ENV=test mix do deps.compile, test
+script:
+  - mix coveralls.travis

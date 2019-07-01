@@ -1,5 +1,7 @@
 # Parasut client for elixir
 
+[![Build Status](https://travis-ci.org/akdilsiz/elixir-parasut.svg?branch=master)](https://travis-ci.org/akdilsiz/elixir-parasut)
+[![Coverage Status](https://coveralls.io/repos/github/akdilsiz/elixir-parasut/badge.svg?branch=master)](https://coveralls.io/github/akdilsiz/elixir-parasut?branch=master)
 [![Hex.pm](https://img.shields.io/hexpm/v/parasut.svg)](https://hex.pm/packages/parasut)
 [![Hex.pm](https://img.shields.io/hexpm/dt/parasut.svg)](https://hex.pm/packages/parasut)
 
