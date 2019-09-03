@@ -23,6 +23,7 @@ defmodule Parasut.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
       package: package(),
       test_coverage: [tool: ExCoveralls],
@@ -34,9 +35,24 @@ defmodule Parasut.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
-    ]
+      extra_applications: [:logger, :jason] ++ case System.fetch_env("PARASUT_DEV") do
+        {:ok, "true"} ->
+          [:cowboy, :plug]
+        _ ->
+          []
+      end
+    ] ++ case System.fetch_env("PARASUT_DEV") do
+      {:ok, "true"} ->
+        [
+          mod: {Parasut.Application, []}
+        ]
+      _ ->
+        []
+    end
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
 
   defp package do
     [
@@ -53,7 +69,15 @@ defmodule Parasut.MixProject do
     [
       {:excoveralls, "~> 0.10", only: :test},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
-    ]
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
+      {:jason, "~> 1.1"}
+    ] ++ case System.fetch_env("PARASUT_DEV") do
+      {:ok, "true"} ->
+        [
+          {:plug_cowboy, "~> 2.0"}
+        ]
+      _ ->
+        []
+    end
   end
 end
