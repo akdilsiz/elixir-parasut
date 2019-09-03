@@ -16,20 +16,33 @@
 #
 
 defmodule Parasut do
-  @moduledoc """
-  Documentation for Parasut.
-  """
+  @moduledoc false
 
-  @doc """
-  Hello world.
+  defmacro static_assert_binary(param) do
+    quote do
+      unless is_binary(unquote(param)) do
+        raise Parasut.InvalidConfigurationError
+      end
+    end
+  end
 
-  ## Examples
+  defmacro static_assert_map(param) do
+    quote do
+      unless is_map(unquote(param)) do
+        raise Parasut.InvalidConfigurationError
+      end
+    end
+  end
 
-      iex> Parasut.hello()
-      :world
+  defmacro static_assert_tuple(param) do
+    quote do
+      unless is_tuple(unquote(param)) do
+        raise Parasut.InvalidConfigurationError
+      end
+    end
+  end
 
-  """
-  def hello do
-    :world
+  def start do
+    :ok
   end
 end
