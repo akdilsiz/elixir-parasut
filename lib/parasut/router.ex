@@ -14,8 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+if System.fetch_env("PARASUT_DEV") == {:ok, "true"} do
+	defmodule Parasut.Router do
+		use Plug.Router
+		use Plug.Debugger
+		require Logger
 
-defmodule ParasutTest do
-  use ExUnit.Case
-  doctest Parasut
+		plug(Plug.Logger, log: :debug)
+		plug(:match)
+		plug(:dispatch)	
+
+		get "/callback/parasut" do
+			IO.inspect conn
+
+			send_resp(conn, 200, "")
+		end
+
+		match _ do
+			send_resp(conn, 404, "Not Found")
+		end
+	end
 end

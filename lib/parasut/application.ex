@@ -14,8 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+if System.fetch_env("PARASUT_DEV") == {:ok, "true"} do
+	defmodule Parasut.Application do
+		use Application
 
-defmodule ParasutTest do
-  use ExUnit.Case
-  doctest Parasut
+		def start(_type, _args) do
+			children = [
+				Plug.Cowboy.child_spec(scheme: :http, plug: Parasut.Router, options: [port: 4003])
+			]
+
+			opts = [strategy: :one_for_one, name: Parasut.Supervisor]
+			Supervisor.start_link(children, opts)
+		end
+	end
 end

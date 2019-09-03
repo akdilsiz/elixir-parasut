@@ -14,8 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+defmodule Parasut.InvalidConfigurationError do
+	@doc false
+	defexception [:message]
 
-defmodule ParasutTest do
-  use ExUnit.Case
-  doctest Parasut
+	def exception(param) do
+		%Parasut.InvalidConfigurationError{message: param}
+	end
+
+	def message(_exception) do
+		"Invalid configuration parameter."
+	end
 end

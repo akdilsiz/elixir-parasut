@@ -14,8 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+use Mix.Config
 
-defmodule ParasutTest do
-  use ExUnit.Case
-  doctest Parasut
-end
+config :parasut, Parasut,
+	base_url: "https://api.heroku-staging.parasut.com/v4",
+	client_id: "7cbe7333c9f3854e25dafeb09dd962bca10c89eee595387d39d86c57ff935f61",
+	client_secret: "d0c55355a1dc0aedf7cd5e953c389b2179d8c9f732cb7af5b0ab581362e676fe"
