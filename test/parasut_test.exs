@@ -18,8 +18,4 @@
 defmodule ParasutTest do
   use ExUnit.Case
   doctest Parasut
-
-  test "greets the world" do
-    assert Parasut.hello() == :world
-  end
 end
